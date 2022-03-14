@@ -1,0 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+body {
+  margin: 0;
+  font-family: Roboto -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.Header{
+  z-index: 10;
+  position: fixed;
+  width: 100%;
+  padding: 0 100px 0 20px;
+background-color: #020203!important;
+height: 100px!important;
+-webkit-box-shadow: -1px -2px 3px 6px rgba(0,0,0,0.25); 
+box-shadow: -1px -2px 3px 6px rgba(0,0,0,0.25);
+}
+
+.Header a{
+  top: 0;
+  font-family: Roboto;
+  font-weight: 500;
+  Color:  white!important;
+  font-size: 23px;
+}
+
+.Header-sidemenu{
+  position: fixed!important;
+  height: 100%;
+  width: 100px;
+  background-color: #020203!important;
+}
+
+.Content{
+  margin-top: 100px;
+}
+
+.Welcome{
+  margin:  60px 0 100px 0;
+}
+
+.Welcome h1{
+  font-size: 48px;
+}
+
+.Welcome p{
+  margin: 30px 0 30px 0;
+}
+
+.Welcome span{
+  color: #FF0101;
+}
+
+.Header-sidemenu .nav-link {
+  width: 60px;
+  background-color: white;
+  height: 60px;
+  border-radius: 10px;
+  margin: 20px;
+}

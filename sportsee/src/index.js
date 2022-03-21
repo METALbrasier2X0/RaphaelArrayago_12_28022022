@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import reportWebVitals from './reportWebVitals';
 
 import Home from "./Containers";
+import LineChartDemo from "./Containers/Charts/LineChartDemo.js";
 import Header from "./Containers/Header.js";
 
 import { generatePath } from "react-router";
@@ -22,7 +23,7 @@ export default function App() {
 
          <Routes>
             <Route index element={<Home/>} />
-
+            <Route path="test" element={<LineChartDemo />} />
           </Routes>
     </Container>
 

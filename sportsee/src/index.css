@@ -116,8 +116,17 @@ box-shadow: -1px -2px 3px 6px rgba(0,0,0,0.25);
   top: 0;
 }
 
-.recharts-responsive-container {
+.recharts-responsive-container, .recharts-wrapper {
   background-color: #fbfbfb;
   padding: 20px 0px 20px 0px;
   border-radius: 8px;
+}
+
+.Charts{
+  height: 250px;
+
+}
+
+.ChartsLists{
+  margin-top: 40px!important;
 }

@@ -50,8 +50,8 @@ function LineChartDemo(props) {
   return (
 
      <LineChart
-      width={500}
-      height={300}
+      width={250}
+      height={270}
       data={data}
       margin={{
         top: 5,

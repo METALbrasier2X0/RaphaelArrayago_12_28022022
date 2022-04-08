@@ -7,7 +7,7 @@ function Numbers(props) {
     <>  
 
       
-      <div className="NumberInfo"><div className="NumberIconDiv" style={{background: props.Color}}><i style={{color: props.ColorIcon}} class={props.Icon}></i></div><div className="NumberInfoContent"><p className="ValueNumber">{props.Info}</p> <p className="ValueTitle">{props.Title}</p></div></div>
+      <div className="NumberInfo"><div className="NumberIconDiv" style={{background: props.Color}}><i style={{color: props.ColorIcon}} className={props.Icon}></i></div><div className="NumberInfoContent"><p className="ValueNumber">{props.Info} {props.Mesure}</p> <p className="ValueTitle">{props.Title}</p></div></div>
     
 
     </>

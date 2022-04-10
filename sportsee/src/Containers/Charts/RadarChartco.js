@@ -1,56 +1,77 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, useEffect, useState } from 'react';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
+import { useParams } from "react-router-dom";
 
-
-const data = [
-  {
-    subject: 'Math',
-    A: 120,
-    B: 110,
-    fullMark: 150,
-  },
-  {
-    subject: 'Chinese',
-    A: 98,
-    B: 130,
-    fullMark: 150,
-  },
-  {
-    subject: 'English',
-    A: 86,
-    B: 130,
-    fullMark: 150,
-  },
-  {
-    subject: 'Geography',
-    A: 99,
-    B: 100,
-    fullMark: 150,
-  },
-  {
-    subject: 'Physics',
-    A: 85,
-    B: 90,
-    fullMark: 150,
-  },
-  {
-    subject: 'History',
-    A: 65,
-    B: 85,
-    fullMark: 150,
-  },
-];
 
 function RadarChartco(props) {
-  return (
+  const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [items, setItems] = useState([]);
+
+  let { id } = useParams();
+
+  let LinkToFetch = "http://localhost:3001/user/"
+   LinkToFetch += id
+  LinkToFetch += "/performance"
+
+
+  useEffect(() => {
+    fetch(LinkToFetch)
+      .then(res => res.json())
+      .then(
+        (result) => {
+          setIsLoaded(true);
+          setItems(result);
+
+ 
+        },
+        // Remarque : il faut gérer les erreurs ici plutôt que dans
+        // un bloc catch() afin que nous n’avalions pas les exceptions
+        // dues à de véritables bugs dans les composants.
+        (error) => {
+          setIsLoaded(true);
+          setError(error);
+        }
+      )
+  }, [])
+
+  if (error) {
+    return <div>Erreur : {error.message}</div>;
+  } else if (!isLoaded) {
+
+    items["data"] = {kind: "", keyData: ""};
+    return <div>Chargement...</div>;
+  } else {
+
+           var firstSet = items.data.kind;
+           var firstSetValue = items.data.data;
+           var dataGood = [];
+
+       for (const id in firstSet) {
+
+
+      var result = firstSetValue.filter(obj => {
+      return obj.kind == id
+      })
+
+      let maValeur = new Object();
+      maValeur.subject = firstSet[id];
+      maValeur.A = result[0].value;
+      maValeur.fullMark = 150;
+
+      dataGood.push(maValeur)
+    }
+
+      return (
       <ResponsiveContainer width="100%" height="100%">
-        <RadarChart cx="50%" cy="50%" outerRadius="50%" data={data}>
+        <RadarChart cx="50%" cy="50%" outerRadius="65%" data={dataGood}>
           <PolarGrid />
-          <PolarAngleAxis dataKey="subject" />
+          <PolarAngleAxis dataKey="subject" stroke="#fff" />
           <PolarRadiusAxis />
-          <Radar name="Mike" dataKey="A" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
+          <Radar name="Mike" dataKey="A" stroke="#e60000" fill="#e60000" fillOpacity={0.6} />
         </RadarChart>
       </ResponsiveContainer>
     );
   }
+}
 export default RadarChartco;

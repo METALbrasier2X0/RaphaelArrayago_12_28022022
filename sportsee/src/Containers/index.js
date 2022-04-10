@@ -3,6 +3,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import React, { useEffect, useState } from "react";
 
+import { useParams } from "react-router-dom";
 
 import LineChartDemo from "./Charts/LineChartDemo.js";
 import LineBar from "./Charts/LineBar.js";
@@ -16,9 +17,17 @@ function Home(props) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
 
+   /* Code pour prendre l'id de l'url et qui fetch la bonne url*/
+
+  let { id } = useParams();
+
+  let LinkToFetch = "http://localhost:3001/user/"
+  LinkToFetch += id
+
+  /* Debut de L'AJAX*/
   
   useEffect(() => {
-    fetch("http://localhost:3001/user/12")
+    fetch(LinkToFetch)
       .then(res => res.json())
       .then(
         (result) => {
@@ -37,10 +46,9 @@ function Home(props) {
   if (error) {
     return <div>Erreur : {error.message}</div>;
   } else if (!isLoaded) {
-      items["data"] = {userInfos: "", keyData: ""};
+    items["data"] = {userInfos: "", keyData: ""};
     return <div>Chargement...</div>;
   } else {
-    console.log(items)
     return (
     <>  
       <Row className="Welcome">
@@ -56,7 +64,7 @@ function Home(props) {
 
            <Row className="ChartsLists"> 
            <Col sm={4} className="Charts" >  <LineChartDemo/>  </Col>
-           <Col sm={4} className="Charts" >  <RadarChartco/>  </Col>
+           <Col sm={4} className="Charts Radar" >  <RadarChartco/>  </Col>
            <Col sm={4} className="Charts" >  <RadialBar/>  </Col>
             </Row>
 

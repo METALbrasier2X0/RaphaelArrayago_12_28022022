@@ -41,7 +41,9 @@ box-shadow: -1px -2px 3px 6px rgba(0,0,0,0.25);
 }
 
 .Content{
+  padding-left: 100px!important;
   margin-top: 100px;
+  width: 70%!important;
 }
 
 .Welcome{
@@ -118,7 +120,6 @@ box-shadow: -1px -2px 3px 6px rgba(0,0,0,0.25);
 
 .recharts-responsive-container, .recharts-wrapper {
   background-color: #fbfbfb;
-  padding: 20px 0px 20px 0px;
   border-radius: 8px;
 }
 
@@ -129,4 +130,44 @@ box-shadow: -1px -2px 3px 6px rgba(0,0,0,0.25);
 
 .ChartsLists{
   margin-top: 40px!important;
+}
+
+.headerLeft{
+  color: rgb(255, 0, 0);
+  font-size: 22px;
+margin: auto;
+line-height: 42px;
+}
+
+.sideText{
+  margin-top: 80px;
+  font-size: 12px;
+writing-mode: sideways-lr;
+text-orientation: mixed;
+color: white;
+}
+
+.Radar  tspan {
+  font-size: 10px;
+  color: white;
+}
+
+.Radar .recharts-wrapper{
+  background-color: #282d30;
+}
+
+.Radar.recharts-responsive-container{
+  background-color: #282d30;
+}
+
+.recharts-polar-grid-angle {
+  display: none;
+}
+
+.angleAxis {
+  display: none;
+}
+
+.recharts-layer.recharts-polar-radius-axis {
+  display: none;
 }

@@ -26,10 +26,13 @@ function Header(props) {
 
    <Navbar className="d-flex justify-content-center flex-column Header-sidemenu  " variant="dark">
 
-   <Nav.Link href="#"></Nav.Link>
-   <Nav.Link href="#"></Nav.Link>
-   <Nav.Link href="#"></Nav.Link>
-   <Nav.Link href="#"></Nav.Link>
+   <Nav.Link href="#"><i className="fas fa-praying-hands headerLeft"></i></Nav.Link>
+   <Nav.Link href="#"><i className="fas fa-swimmer headerLeft"></i></Nav.Link>
+   <Nav.Link href="#"><i className="fas fa-biking headerLeft"></i></Nav.Link>
+   <Nav.Link href="#"><i className="fas fa-dumbbell headerLeft"></i></Nav.Link>
+
+ <p className="sideText">Copiryght, SportSee 2020 </p>
+
   </Navbar>
 
 </>

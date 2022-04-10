@@ -23,7 +23,7 @@ export default function App() {
 
          <Routes>
             <Route index element={<Home/>} />
-            <Route path="test" element={<LineChartDemo />} />
+            <Route path={'/user/:id'} element={<Home />} />
           </Routes>
     </Container>
 

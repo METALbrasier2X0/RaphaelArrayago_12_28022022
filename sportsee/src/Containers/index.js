@@ -60,10 +60,11 @@ function Home(props) {
 
        <Row>
           <Col sm={8} >
+           <h3 className="activite">Activité quotidienne</h3> 
            <LineBar/>
 
            <Row className="ChartsLists"> 
-           <Col sm={4} className="Charts" >  <LineChartDemo/>  </Col>
+           <Col sm={4} className="Charts lineChart" > <h3 className="LineChartTitle">Durée moyenne des sessions</h3>  <LineChartDemo/>  </Col>
            <Col sm={4} className="Charts Radar" >  <RadarChartco/>  </Col>
            <Col sm={4} className="Charts" >  <RadialBar/>  </Col>
             </Row>

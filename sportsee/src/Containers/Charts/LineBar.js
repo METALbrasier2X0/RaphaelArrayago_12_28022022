@@ -1,74 +1,90 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, useEffect, useState } from 'react';
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { useParams } from "react-router-dom";
 
-const data = [
-  {
-    name: 'Page A',
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
-  },
-  {
-    name: 'Page B',
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
-  },
-  {
-    name: 'Page C',
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
-  },
-  {
-    name: 'Page D',
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
-  },
-  {
-    name: 'Page E',
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
-  },
-  {
-    name: 'Page F',
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
-  },
-  {
-    name: 'Page G',
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
-  },
-];
 
 function LineBar(props) {
-    return (
- <ResponsiveContainer width="100%" height="40%">
+  const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [items, setItems] = useState([]);
+
+  let { id } = useParams();
+
+  let LinkToFetch = "http://localhost:3001/user/"
+  LinkToFetch += id
+  LinkToFetch += "/activity"
+
+
+  // Remarque : le tableau vide de dépendances [] indique
+  // que useEffect ne s’exécutera qu’une fois, un peu comme
+  // componentDidMount()
+  useEffect(() => {
+    fetch(LinkToFetch)
+      .then(res => res.json())
+      .then(
+        (result) => {
+          setIsLoaded(true);
+          setItems(result);
+        },
+        // Remarque : il faut gérer les erreurs ici plutôt que dans
+        // un bloc catch() afin que nous n’avalions pas les exceptions
+        // dues à de véritables bugs dans les composants.
+        (error) => {
+          setIsLoaded(true);
+          setError(error);
+        }
+      )
+  }, [])
+
+
+
+
+  if (error) {
+    return <div>Erreur : {error.message}</div>;
+  } else if (!isLoaded) {
+    items["data"] = {sessions: [], keyData: ""};
+    return <div>Chargement...</div>;
+  } else { 
+
+    var dataGood = [];
+    var firstSet = items.data.sessions;
+
+    firstSet.forEach((element, index) => {
+
+      let maValeur = new Object();
+      let id = index +1;
+      maValeur.name = element.day;
+      maValeur.kilogram = element.kilogram;
+      maValeur.calories = element.calories;
+
+      dataGood.push(maValeur) })
+
+  
+   return (
+ <ResponsiveContainer width="100%" height="50%">
         <BarChart
           width={500}
-          height={100}
-          data={data}
+          height={15}
+          data={dataGood}
           margin={{
-            top: 5,
+            top: 20,
             right: 30,
-            left: 20,
+            left: 30,
             bottom: 5,
           }}
+          barSize={10}
         >
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
+          <CartesianGrid strokeDasharray="2 2" /> 
+          <XAxis height="5" padding={{ left: 20, right: 20 }} /> 
+          <YAxis  orientation ="right"/>
+
           <Tooltip />
-          <Legend />
-          <Bar dataKey="pv" fill="#282D30" />
-          <Bar dataKey="uv" fill="#E60000" />
+          <Legend height="80px" verticalAlign='top' iconType='circle' align='right'/>
+          <Bar name="Poids (kg)" dataKey="kilogram" fill="#282D30" radius={[10, 10, 0, 0]}/>
+          <Bar name="Calories brûlées (kCal)" dataKey="calories" fill="#E60000" radius={[10, 10, 0, 0]}/>
         </BarChart>
       </ResponsiveContainer>
     );
   }
+}
 export default LineBar;

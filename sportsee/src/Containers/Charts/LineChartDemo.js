@@ -1,3 +1,4 @@
+import React, { PureComponent, useEffect, useState } from 'react';
 import {
   LineChart,
   Line,
@@ -5,71 +6,89 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend
+  Legend,
+  ResponsiveContainer
 } from "recharts";
-
-const data = [
-  {
-    name: "L",
-    uv: 1000,
-    amt: 2400
-  },
-  {
-    name: "M",
-    uv: 1500,
-    amt: 2210
-  },
-  {
-    name: "M",
-    uv: 2000,
-    amt: 2290
-  },
-  {
-    name: "J",
-    uv: 2780,
-    amt: 2000
-  },
-  {
-    name: "V",
-    uv: 1890,
-    amt: 2181
-  },
-  {
-    name: "S",
-    uv: 2390,
-    amt: 2500
-  },
-  {
-    name: "D",
-    uv: 3490,
-    amt: 2100
-  }
-];
+import { useParams } from "react-router-dom";
 
 function LineChartDemo(props) {
-  return (
+  const [error, setError] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [items, setItems] = useState([]);
 
-     <LineChart
+    let { id } = useParams();
+
+  let LinkToFetch = "http://localhost:3001/user/"
+  LinkToFetch += id
+  LinkToFetch += "/average-sessions"
+
+
+  // Remarque : le tableau vide de dépendances [] indique
+  // que useEffect ne s’exécutera qu’une fois, un peu comme
+  // componentDidMount()
+  useEffect(() => {
+    fetch(LinkToFetch)
+      .then(res => res.json())
+      .then(
+        (result) => {
+          setIsLoaded(true);
+          setItems(result);
+        },
+        // Remarque : il faut gérer les erreurs ici plutôt que dans
+        // un bloc catch() afin que nous n’avalions pas les exceptions
+        // dues à de véritables bugs dans les composants.
+        (error) => {
+          setIsLoaded(true);
+          setError(error);
+        }
+      )
+  }, [])
+
+  if (error) {
+    return <div>Erreur : {error.message}</div>;
+  } else if (!isLoaded) {
+     items["data"] = {sessions: []};
+    return <div>Chargement...</div>;
+  } else {
+
+
+       var firstSet = items.data.sessions;
+      
+      var dataGood = [];
+
+      firstSet.forEach((element, index) => {
+
+      let maValeur = new Object();
+      let id = index +1;
+      maValeur.name = element.day;
+      maValeur.Temps = element.sessionLength;
+
+      dataGood.push(maValeur) })
+
+      let days = ['L','M','M','J','V','S','D'];
+
+    return (
+<ResponsiveContainer width="100%" height="100%">
+    <LineChart
       width={250}
-      height={270}
-      data={data}
+      height={255}
+      data={dataGood}
       margin={{
-        top: 5,
-        right: 30,
-        left: 20,
+        top: 90,
+        right: 0,
+        left: 0,
         bottom: 5
       }}
     >
-      <CartesianGrid strokeDasharray="3 3" />
+      <CartesianGrid strokeDasharray="0 0" />
       <XAxis dataKey="name" />
-      <YAxis />
+      <YAxis hide={true}  />
       <Tooltip />
       <Legend />
-      <Line type="monotone" dataKey="uv" stroke="red" />
+      <Line dot={false} type="monotone" dataKey="Temps" stroke="white" strokeWidth={2} />
     </LineChart>
-
-
-  
-  ); 
+     </ResponsiveContainer>
+    );
+  }
 }
 export default LineChartDemo;

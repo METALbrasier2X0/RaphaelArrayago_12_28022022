@@ -81,9 +81,9 @@ function LineChartDemo(props) {
       }}
     >
       <CartesianGrid strokeDasharray="0 0" />
-      <XAxis dataKey="name" />
-      <YAxis hide={true}  />
-      <Tooltip />
+      <XAxis  dataKey="name" tick={{fill: 'white'}}  tickFormatter={(tick) => days[tick-1]} />
+      <YAxis hide={true}/>
+      <Tooltip  itemStyle={{ color: 'black'}}/>
       <Legend />
       <Line dot={false} type="monotone" dataKey="Temps" stroke="white" strokeWidth={2} />
     </LineChart>

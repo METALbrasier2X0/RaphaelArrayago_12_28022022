@@ -1,41 +1,58 @@
 import React, { PureComponent } from 'react';
 import { RadialBarChart, RadialBar, Legend, ResponsiveContainer } from 'recharts';
 
-const data = [
-  
-  {
-    name: 'Total',
-    uv: 100,
-    pv: 100,
-    fill: '#d0ed57',
-  },
-  {
-    name: 'Progress',
-    uv: 15,
-    pv: 15,
-    fill: '#ffc658',
-  },
-];
 
-const style = {
-  top: '50%',
-  right: 0,
-  transform: 'translate(0, -50%)',
-  lineHeight: '24px',
-};
+
 
 function RadialChartco(props) {
+
+ const data = [
+  
+  {
+    name: 'Progress',
+    uv: props.progress * 100,
+    pv: 100,
+    fill: '#e60000',
+  },
+   {
+    name: 'max',
+    uv: 100,
+    pv: 15,
+    fill: '#e60000',
+  }
+];
+
+class CustomizedLabel extends PureComponent {
+  render() {
+    const { value } = this.props;
+    return (
+      <>  
+      <text scaleToFit={true} x='42%' y={110} textAnchor className='labelRadial' position='center' name={value} fill= '#000'>
+        {value}%
+       
+      </text>
+       <text scaleToFit={true} x='38.5%' y={140} className='labelRadialObj' position='center' name={value} fill= '#515151'>
+        De votre 
+       
+       </text>
+       <text scaleToFit={true} x='40%' y={160} className='labelRadialObj' position='center' name={value} fill= '#515151'>
+        objectif
+      </text>
+        </>  
+    );
+  }
+}
+
   return (
       <ResponsiveContainer width="100%" height="100%">
-        <RadialBarChart cx="50%" cy="50%" innerRadius="10%" outerRadius="100%" barSize={10} data={data}>
+        <RadialBarChart  cx="50%" cy="50%" innerRadius="60%" outerRadius="100%" barSize={10} data={data}>
           <RadialBar
-            minAngle={15}
-            label={{ position: 'insideStart', fill: '#fff' }}
+          label={<CustomizedLabel />}
             background
-            clockWise
+            clockWise = {false}
             dataKey="uv"
           />
-          <Legend iconSize={10} layout="vertical" verticalAlign="middle" wrapperStyle={style} />
+          
         </RadialBarChart>
       </ResponsiveContainer>
     );

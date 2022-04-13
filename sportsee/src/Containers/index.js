@@ -49,6 +49,7 @@ function Home(props) {
     items["data"] = {userInfos: "", keyData: ""};
     return <div>Chargement...</div>;
   } else {
+
     return (
     <>  
       <Row className="Welcome">
@@ -66,7 +67,7 @@ function Home(props) {
            <Row className="ChartsLists"> 
            <Col sm={4} className="Charts lineChart" > <h3 className="LineChartTitle">Durée moyenne des sessions</h3>  <LineChartDemo/>  </Col>
            <Col sm={4} className="Charts Radar" >  <RadarChartco/>  </Col>
-           <Col sm={4} className="Charts" >  <RadialBar/>  </Col>
+           <Col sm={4} className="Charts"><h3 className="Score">Score</h3>   <RadialBar progress={items.data.todayScore}/>  </Col>
             </Row>
 
           </Col>

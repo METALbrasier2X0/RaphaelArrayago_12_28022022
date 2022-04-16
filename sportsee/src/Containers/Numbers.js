@@ -1,4 +1,5 @@
 import Container from 'react-bootstrap/Container';
+import PropTypes from 'prop-types';
 
 
 
@@ -13,4 +14,6 @@ function Numbers(props) {
     </>
   ); 
 }
+Numbers.propTypes = {Color: PropTypes.string, ColorIcon: PropTypes.string, Icon: PropTypes.string, Mesure: PropTypes.string, Info: PropTypes.number, Title: PropTypes.string };
+
 export default Numbers;

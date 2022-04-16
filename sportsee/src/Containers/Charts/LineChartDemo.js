@@ -11,6 +11,8 @@ import {
 } from "recharts";
 import { useParams } from "react-router-dom";
 
+import Isjson from "../../config.js"
+
 function LineChartDemo(props) {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -22,6 +24,11 @@ function LineChartDemo(props) {
   LinkToFetch += id
   LinkToFetch += "/average-sessions"
 
+
+  if (Isjson == true) { 
+    LinkToFetch = ""
+    LinkToFetch = LinkToFetch.concat('/',id,'_average-sessions','.json') ;
+  }
 
   // Remarque : le tableau vide de dépendances [] indique
   // que useEffect ne s’exécutera qu’une fois, un peu comme

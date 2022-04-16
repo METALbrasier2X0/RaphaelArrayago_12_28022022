@@ -11,20 +11,29 @@ import RadarChartco from "./Charts/RadarChartco.js";
 import RadialBar from "./Charts/RadialBar.js";
 import Numbers from "./Numbers.js";
 
+import Isjson from "../config.js"
+
 function Home(props) {
 
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [items, setItems] = useState([]);
 
-   /* Code pour prendre l'id de l'url et qui fetch la bonne url*/
+   /* Code that gets th id and fetches the url*/
 
   let { id } = useParams();
 
   let LinkToFetch = "http://localhost:3001/user/"
   LinkToFetch += id
 
-  /* Debut de L'AJAX*/
+
+  if (Isjson == true) { 
+    LinkToFetch = ""
+    LinkToFetch = LinkToFetch.concat('/',id,'.json') ;
+  }
+
+
+  /* Start of the AJAX*/
   
   useEffect(() => {
     fetch(LinkToFetch)
@@ -43,6 +52,7 @@ function Home(props) {
       )
   }, [])
 
+     /* Code to handle errors*/
   if (error) {
     return <div>Erreur : {error.message}</div>;
   } else if (!isLoaded) {
@@ -50,6 +60,8 @@ function Home(props) {
     return <div>Chargement...</div>;
   } else {
 
+
+    /*Renders the dashboard*/
     return (
     <>  
       <Row className="Welcome">

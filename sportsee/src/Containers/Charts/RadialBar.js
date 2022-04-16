@@ -27,15 +27,15 @@ class CustomizedLabel extends PureComponent {
     const { value } = this.props;
     return (
       <>  
-      <text scaleToFit={true} x='42%' y={110} textAnchor className='labelRadial' position='center' name={value} fill= '#000'>
+      <text  x='42%' y={110}  className='labelRadial' position='center' name={value} fill= '#000'>
         {value}%
        
       </text>
-       <text scaleToFit={true} x='38.5%' y={140} className='labelRadialObj' position='center' name={value} fill= '#515151'>
+       <text  x='38.5%' y={140} className='labelRadialObj' position='center' name={value} fill= '#515151'>
         De votre 
        
        </text>
-       <text scaleToFit={true} x='40%' y={160} className='labelRadialObj' position='center' name={value} fill= '#515151'>
+       <text x='40%' y={160} className='labelRadialObj' position='center' name={value} fill= '#515151'>
         objectif
       </text>
         </>  

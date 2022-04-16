@@ -1,6 +1,7 @@
 import React, { PureComponent, useEffect, useState } from 'react';
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { useParams } from "react-router-dom";
+import Isjson from "../../config.js"
 
 
 function LineBar(props) {
@@ -13,6 +14,12 @@ function LineBar(props) {
   let LinkToFetch = "http://localhost:3001/user/"
   LinkToFetch += id
   LinkToFetch += "/activity"
+
+  if (Isjson == true) { 
+    LinkToFetch = ""
+    LinkToFetch = LinkToFetch.concat('/',id,'_activity','.json') ;
+  }
+
 
 
   // Remarque : le tableau vide de dépendances [] indique

@@ -1,7 +1,7 @@
 import React, { PureComponent, useEffect, useState } from 'react';
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
 import { useParams } from "react-router-dom";
-
+import Isjson from "../../config.js"
 
 function RadarChartco(props) {
   const [error, setError] = useState(null);
@@ -13,6 +13,14 @@ function RadarChartco(props) {
   let LinkToFetch = "http://localhost:3001/user/"
    LinkToFetch += id
   LinkToFetch += "/performance"
+
+
+
+
+  if (Isjson == true) { 
+    LinkToFetch = ""
+    LinkToFetch = LinkToFetch.concat('/',id,'_performance','.json') ;
+  }
 
 
   useEffect(() => {

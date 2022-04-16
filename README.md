@@ -22,6 +22,7 @@ then check http://localhost:3000/user/{userid}
 
 
 Before Starting the project you must run on an other port this project -https://github.com/OpenClassrooms-Student-Center/P9-front-end-dashboard
-If you don't have the API running you can also have a local version byt turning the value in config.js Ifjson false
+
+If you don't have the API running you can also have a local version by turning the value in config.js Ifjson false
 
 

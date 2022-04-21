@@ -1,8 +1,13 @@
 import React, { PureComponent } from 'react';
 import { RadialBarChart, RadialBar, Legend, ResponsiveContainer } from 'recharts';
+import PropTypes from 'prop-types';
 
 
-
+/**
+ * Code to Show the Radial Chart
+ * @param   {props}           props              Props containing data from parent component
+ * @return  {React element}                      Containers that shows the Radial Chart (User Activity Stat)       
+ */
 
 function RadialChartco(props) {
 
@@ -56,5 +61,8 @@ class CustomizedLabel extends PureComponent {
         </RadialBarChart>
       </ResponsiveContainer>
     );
+    /*Only the progress number being passed as prop*/
+  CustomizedLabel.propTypes = {Progress: PropTypes.number};
   }
+
 export default RadialChartco;

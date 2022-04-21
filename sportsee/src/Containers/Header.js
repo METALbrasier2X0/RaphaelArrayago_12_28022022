@@ -4,6 +4,13 @@ import Container from 'react-bootstrap/Container';
 
 import logo from './Assets/logo.png';
 
+/**
+ * Code to show the header
+ * @param   {props}           props     Props containing data from parent component
+ * @return  {React element}             Containers that shows the Header of the Dashboard          
+ */
+
+
 function Header(props) {
   return (
   <>

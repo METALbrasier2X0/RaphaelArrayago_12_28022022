@@ -10,8 +10,33 @@ import {
   ResponsiveContainer
 } from "recharts";
 import { useParams } from "react-router-dom";
+import CallApi from '../Api.js'
 
 import Isjson from "../../config.js"
+
+/**
+ * Code to Format the data for the chart
+ * @param   {Array}           data             Data from the API
+ * @return  {Object}          dataGood         Object with the Formated Data          
+ */
+
+
+function Format(data){
+
+var dataGood = [];
+
+      data.forEach((element, index) => {
+
+      let maValeur = new Object();
+      let id = index +1;
+      maValeur.name = element.day;
+      maValeur.Temps = element.sessionLength;
+
+      dataGood.push(maValeur) })
+
+      return dataGood
+
+}
 
 function LineChartDemo(props) {
   const [error, setError] = useState(null);
@@ -29,21 +54,13 @@ function LineChartDemo(props) {
     LinkToFetch = ""
     LinkToFetch = LinkToFetch.concat('/',id,'_average-sessions','.json') ;
   }
-
-  // Remarque : le tableau vide de dépendances [] indique
-  // que useEffect ne s’exécutera qu’une fois, un peu comme
-  // componentDidMount()
   useEffect(() => {
-    fetch(LinkToFetch)
-      .then(res => res.json())
+   CallApi(LinkToFetch)
       .then(
         (result) => {
           setIsLoaded(true);
           setItems(result);
         },
-        // Remarque : il faut gérer les erreurs ici plutôt que dans
-        // un bloc catch() afin que nous n’avalions pas les exceptions
-        // dues à de véritables bugs dans les composants.
         (error) => {
           setIsLoaded(true);
           setError(error);
@@ -58,22 +75,12 @@ function LineChartDemo(props) {
     return <div>Chargement...</div>;
   } else {
 
+        var firstSet = items.data.sessions;
 
-       var firstSet = items.data.sessions;
+        var dataGood = Format(firstSet);
+
+        let days = ['L','M','M','J','V','S','D'];
       
-      var dataGood = [];
-
-      firstSet.forEach((element, index) => {
-
-      let maValeur = new Object();
-      let id = index +1;
-      maValeur.name = element.day;
-      maValeur.Temps = element.sessionLength;
-
-      dataGood.push(maValeur) })
-
-      let days = ['L','M','M','J','V','S','D'];
-
     return (
 <ResponsiveContainer width="100%" height="100%">
     <LineChart

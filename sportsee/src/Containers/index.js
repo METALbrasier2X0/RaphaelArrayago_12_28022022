@@ -5,13 +5,23 @@ import React, { useEffect, useState } from "react";
 
 import { useParams } from "react-router-dom";
 
+import CallApi from './Api.js'
+
 import LineChartDemo from "./Charts/LineChartDemo.js";
 import LineBar from "./Charts/LineBar.js";
 import RadarChartco from "./Charts/RadarChartco.js";
 import RadialBar from "./Charts/RadialBar.js";
 import Numbers from "./Numbers.js";
 
+
 import Isjson from "../config.js"
+
+/**
+ * Code to Render the page
+ * @param   {props}           props     Props containing data from parent component
+ * @return  {React element}   Home      Element rendering the Main Page           
+ */
+
 
 function Home(props) {
 
@@ -36,8 +46,8 @@ function Home(props) {
   /* Start of the AJAX*/
   
   useEffect(() => {
-    fetch(LinkToFetch)
-      .then(res => res.json())
+    
+    CallApi(LinkToFetch)
       .then(
         (result) => {
           setIsLoaded(true);

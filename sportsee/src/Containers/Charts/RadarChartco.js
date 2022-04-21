@@ -3,6 +3,39 @@ import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Responsi
 import { useParams } from "react-router-dom";
 import Isjson from "../../config.js"
 
+import CallApi from '../Api.js'
+
+/**
+ * Code to Format the data for the chart
+ * @param   {Array}           kind             Data from the API (kind of activity)
+ * @param   {Object}          value            Data from the API (value of the kind)
+ * @return  {Object}          dataGood         Object with the Formated Data          
+ */
+
+function Format(kind, value){
+
+var dataGood = [];
+
+         for (const id in kind) {
+
+      var result = value.filter(obj => {
+      return obj.kind == id
+      })
+
+      let maValeur = new Object();
+      maValeur.subject = kind[id];
+      maValeur.A = result[0].value;
+      maValeur.fullMark = 150;
+
+      dataGood.push(maValeur)
+    }
+
+
+      return dataGood
+
+}
+
+
 function RadarChartco(props) {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -14,9 +47,6 @@ function RadarChartco(props) {
    LinkToFetch += id
   LinkToFetch += "/performance"
 
-
-
-
   if (Isjson == true) { 
     LinkToFetch = ""
     LinkToFetch = LinkToFetch.concat('/',id,'_performance','.json') ;
@@ -24,18 +54,12 @@ function RadarChartco(props) {
 
 
   useEffect(() => {
-    fetch(LinkToFetch)
-      .then(res => res.json())
+ CallApi(LinkToFetch)
       .then(
         (result) => {
           setIsLoaded(true);
           setItems(result);
-
- 
         },
-        // Remarque : il faut gérer les erreurs ici plutôt que dans
-        // un bloc catch() afin que nous n’avalions pas les exceptions
-        // dues à de véritables bugs dans les composants.
         (error) => {
           setIsLoaded(true);
           setError(error);
@@ -50,26 +74,9 @@ function RadarChartco(props) {
     items["data"] = {kind: "", keyData: ""};
     return <div>Chargement...</div>;
   } else {
-
            var firstSet = items.data.kind;
            var firstSetValue = items.data.data;
-           var dataGood = [];
-
-       for (const id in firstSet) {
-
-
-      var result = firstSetValue.filter(obj => {
-      return obj.kind == id
-      })
-
-      let maValeur = new Object();
-      maValeur.subject = firstSet[id];
-      maValeur.A = result[0].value;
-      maValeur.fullMark = 150;
-
-      dataGood.push(maValeur)
-    }
-
+           var dataGood = Format(firstSet, firstSetValue)
       return (
       <ResponsiveContainer width="100%" height="100%">
         <RadarChart cx="50%" cy="50%" outerRadius="65%" data={dataGood}>

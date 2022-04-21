@@ -2,7 +2,37 @@ import React, { PureComponent, useEffect, useState } from 'react';
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { useParams } from "react-router-dom";
 import Isjson from "../../config.js"
+import CallApi from '../Api.js'
 
+/**
+ * Code to Format the data for the chart
+ * @param   {Array}           data             Data from the API
+ * @return  {Object}          dataGood         Object with the Formated Data          
+ */
+
+function Format(data){
+
+var dataGood = [];
+
+   data.forEach((element, index) => {
+
+      let maValeur = new Object();
+      let id = index +1;
+      maValeur.name = element.day;
+      maValeur.kilogram = element.kilogram;
+      maValeur.calories = element.calories;
+
+      dataGood.push(maValeur) })
+
+      return dataGood
+
+}
+
+/**
+ * Code to show the line bar chart
+ * @param   {props}           props     Props containing data from parent component
+ * @return  {React element}             Containers that shows the line bar chart(User Activity)          
+ */
 
 function LineBar(props) {
   const [error, setError] = useState(null);
@@ -20,22 +50,13 @@ function LineBar(props) {
     LinkToFetch = LinkToFetch.concat('/',id,'_activity','.json') ;
   }
 
-
-
-  // Remarque : le tableau vide de dépendances [] indique
-  // que useEffect ne s’exécutera qu’une fois, un peu comme
-  // componentDidMount()
   useEffect(() => {
-    fetch(LinkToFetch)
-      .then(res => res.json())
+   CallApi(LinkToFetch)
       .then(
         (result) => {
           setIsLoaded(true);
           setItems(result);
         },
-        // Remarque : il faut gérer les erreurs ici plutôt que dans
-        // un bloc catch() afin que nous n’avalions pas les exceptions
-        // dues à de véritables bugs dans les composants.
         (error) => {
           setIsLoaded(true);
           setError(error);
@@ -53,19 +74,11 @@ function LineBar(props) {
     return <div>Chargement...</div>;
   } else { 
 
-    var dataGood = [];
-    var firstSet = items.data.sessions;
 
-    firstSet.forEach((element, index) => {
+        var firstSet = items.data.sessions;
 
-      let maValeur = new Object();
-      let id = index +1;
-      maValeur.name = element.day;
-      maValeur.kilogram = element.kilogram;
-      maValeur.calories = element.calories;
-
-      dataGood.push(maValeur) })
-
+        var dataGood = Format(firstSet);
+ 
   
    return (
  <ResponsiveContainer width="100%" height="50%">

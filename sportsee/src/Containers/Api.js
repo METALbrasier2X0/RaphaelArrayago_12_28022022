@@ -21,12 +21,9 @@ import Isjson from "../config.js"
 
 function CallApi(LinkToFetch) {
 
-var data = {};
 return new Promise(resolve => fetch(LinkToFetch)
   .then(response => response.json())
   .then(data => resolve(data)))
-
-return data
 
 }
 

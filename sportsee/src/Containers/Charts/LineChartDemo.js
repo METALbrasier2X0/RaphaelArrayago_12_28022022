@@ -38,6 +38,12 @@ var dataGood = [];
 
 }
 
+/**
+ * Code to show the line chart
+ * @param   {props}           props     Props containing data from parent component
+ * @return  {React element}             Containers that shows the line chart(User Session)          
+ */
+
 function LineChartDemo(props) {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);

@@ -35,6 +35,11 @@ var dataGood = [];
 
 }
 
+/**
+ * Code to show the Radar chart
+ * @param   {props}           props     Props containing data from parent component
+ * @return  {React element}             Containers that shows the Radar chart          
+ */
 
 function RadarChartco(props) {
   const [error, setError] = useState(null);
